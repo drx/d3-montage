@@ -60,5 +60,11 @@ def generate_montage(filenames):
     montage.save(filename)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        generate_montage(sys.argv[1:])
+    old_cwd = os.getcwd()
+    
+    os.chdir(os.path.dirname(sys.argv[0]))
+    try:
+        if len(sys.argv) > 1:
+            generate_montage(sys.argv[1:])
+    finally:
+        os.chdir(old_cwd)
