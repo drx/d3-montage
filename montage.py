@@ -31,16 +31,17 @@ def generate_montage(filenames):
     i = 0
     max_y = 0
     max_x = 0
+    offset_x = 0
     for image in images:
         montage.paste(image, (offset_x, offset_y))
 
         text_coords = offset_x + image.size[0] - 45, offset_y + 120
         draw.text(text_coords, '#{0}'.format(i+1), font=image_font)
         
+        max_x = max(max_x, offset_x+image.size[0])
         if i % row_size == row_size-1: 
             offset_y += max_y+margin
             max_y = 0
-            max_x = max(max_x, offset_x+image.size[0]+margin)
             offset_x = 0
         else:
             offset_x += image.size[0]+margin
@@ -48,7 +49,7 @@ def generate_montage(filenames):
 
         i += 1
 
-    if i % row_size != row_size-1:
+    if i % row_size:
         offset_y += max_y
 
     filename = strftime("Montage %Y-%m-%d at %H.%M.%S.png")
