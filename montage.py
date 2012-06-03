@@ -22,9 +22,12 @@ def generate_montage(filenames):
 
     montage = Image.new(mode='RGBA', size=(width, height), color=(0,0,0,0))
     try:
-        image_font = ImageFont.load('font/Helvetica-18.pil')
-    except int:
-        image_font = ImageFont.load_default()
+        image_font = ImageFont.truetype('font/Helvetica.ttf', 18)
+    except:
+        try:
+            image_font = ImageFont.load('font/Helvetica-18.pil')
+        except:
+            image_font = ImageFont.load_default()
     draw = ImageDraw.Draw(montage)
     offset_x = offset_y = 0
 
